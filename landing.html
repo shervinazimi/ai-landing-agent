@@ -70,6 +70,153 @@
           transparent 70%
         );
       }
+
+      /* استایل سیستم مداری بنر (Orbital System) */
+      .orbital-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 0;
+      }
+
+      .orbital-system {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        perspective: 1000px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .core-glow {
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(
+          circle,
+          rgba(6, 182, 212, 0.18) 0%,
+          rgba(139, 92, 246, 0.12) 45%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        filter: blur(25px);
+        animation: pulseGlow 4s ease-in-out infinite alternate;
+      }
+
+      .orbit {
+        position: absolute;
+        border-radius: 50%;
+        transform-style: preserve-3d;
+      }
+
+      .orbit-1 {
+        width: 340px;
+        height: 340px;
+        border: 1px solid rgba(6, 182, 212, 0.3);
+        box-shadow: 0 0 25px rgba(6, 182, 212, 0.05);
+        animation: rotateOrbit1 14s linear infinite;
+      }
+
+      .orbit-2 {
+        width: 540px;
+        height: 540px;
+        border: 1px dashed rgba(139, 92, 246, 0.35);
+        animation: rotateOrbit2 22s linear infinite reverse;
+      }
+
+      .orbit-3 {
+        width: 760px;
+        height: 760px;
+        border: 1px solid rgba(99, 102, 241, 0.18);
+        animation: rotateOrbit3 32s linear infinite;
+      }
+
+      .planet {
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      .planet-cyan {
+        width: 14px;
+        height: 14px;
+        top: -7px;
+        left: calc(50% - 7px);
+        background: #06b6d4;
+        box-shadow:
+          0 0 16px #06b6d4,
+          0 0 32px #06b6d4;
+      }
+
+      .planet-purple {
+        width: 18px;
+        height: 18px;
+        bottom: -9px;
+        left: calc(50% - 9px);
+        background: #8b5cf6;
+        box-shadow:
+          0 0 20px #8b5cf6,
+          0 0 40px #8b5cf6;
+      }
+
+      .planet-blue {
+        width: 12px;
+        height: 12px;
+        top: calc(50% - 6px);
+        right: -6px;
+        background: #818cf8;
+        box-shadow:
+          0 0 15px #818cf8,
+          0 0 30px #4f46e5;
+      }
+
+      .planet-small {
+        width: 7px;
+        height: 7px;
+        background: #f8fafc;
+        box-shadow: 0 0 10px #ffffff;
+      }
+
+      @keyframes rotateOrbit1 {
+        0% {
+          transform: rotateX(62deg) rotateY(15deg) rotateZ(0deg);
+        }
+        100% {
+          transform: rotateX(62deg) rotateY(15deg) rotateZ(360deg);
+        }
+      }
+
+      @keyframes rotateOrbit2 {
+        0% {
+          transform: rotateX(55deg) rotateY(-25deg) rotateZ(0deg);
+        }
+        100% {
+          transform: rotateX(55deg) rotateY(-25deg) rotateZ(360deg);
+        }
+      }
+
+      @keyframes rotateOrbit3 {
+        0% {
+          transform: rotateX(68deg) rotateY(8deg) rotateZ(0deg);
+        }
+        100% {
+          transform: rotateX(68deg) rotateY(8deg) rotateZ(360deg);
+        }
+      }
+
+      @keyframes pulseGlow {
+        0% {
+          transform: scale(0.9);
+          opacity: 0.6;
+        }
+        100% {
+          transform: scale(1.15);
+          opacity: 1;
+        }
+      }
     </style>
   </head>
   <body class="antialiased selection:bg-accentViolet selection:text-white">
@@ -203,27 +350,56 @@
     <main class="relative z-10 pt-20">
       <!-- Hero Section -->
       <section
-        class="max-w-7xl mx-auto px-6 pt-20 pb-28 text-center lg:pt-32 lg:pb-36"
+        class="max-w-7xl mx-auto px-6 pt-16 pb-28 text-center lg:pt-24 lg:pb-36 overflow-hidden"
       >
-        <div
-          class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-accentViolet/30 text-xs font-semibold text-accentCyan mb-8 animate-pulse-slow"
-        >
-          <span class="w-2 h-2 rounded-full bg-accentCyan animate-ping"></span>
-          Next-Gen Enterprise Automation
+        <!-- بنر سیاره‌ای یکپارچه شده با تیتر اصلی -->
+        <div class="orbital-wrapper mb-6">
+          <!-- مدارهای سیاره‌ای در پس‌زمینه -->
+          <div class="orbital-system">
+            <div class="core-glow"></div>
+
+            <div class="orbit orbit-1">
+              <div class="planet planet-cyan" title="Data Agent"></div>
+            </div>
+
+            <div class="orbit orbit-2">
+              <div class="planet planet-purple" title="Execution Agent"></div>
+              <div
+                class="planet planet-small"
+                style="top: 80%; left: 15%"
+              ></div>
+            </div>
+
+            <div class="orbit orbit-3">
+              <div class="planet planet-blue" title="Strategy Agent"></div>
+            </div>
+          </div>
+
+          <!-- محتوای متنی در مرکز مدارها -->
+          <div class="relative z-10">
+            <div
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-accentViolet/30 text-xs font-semibold text-accentCyan mb-8 animate-pulse-slow"
+            >
+              <span
+                class="w-2 h-2 rounded-full bg-accentCyan animate-ping"
+              ></span>
+              SYSTEM ONLINE // 24/7 AUTONOMOUS
+            </div>
+
+            <h1
+              class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-5xl mx-auto leading-[1.1]"
+            >
+              Autonomous AI Workforce by
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-accentViolet via-indigo-400 to-accentCyan glow-text"
+                >Shervin AI</span
+              >
+            </h1>
+          </div>
         </div>
 
-        <h1
-          class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-5xl mx-auto leading-[1.1] mb-8"
-        >
-          Autonomous AI Workforce by
-          <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-accentViolet via-indigo-400 to-accentCyan glow-text"
-            >Shervin AI</span
-          >
-        </h1>
-
         <p
-          class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal mb-12 leading-relaxed"
+          class="relative z-10 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal mb-12 leading-relaxed"
         >
           Deploy self-learning AI agents that execute complex multi-step
           workflows, scale operations instantly, and drive exponential revenue
@@ -231,7 +407,7 @@
         </p>
 
         <div
-          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+          class="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
             href="#contact"
@@ -248,7 +424,7 @@
         </div>
 
         <!-- Hero Visual / Dashboard Preview -->
-        <div class="mt-16 relative max-w-5xl mx-auto animate-float">
+        <div class="mt-16 relative z-10 max-w-5xl mx-auto animate-float">
           <div
             class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-accentViolet to-accentCyan opacity-30 blur-xl"
           ></div>
